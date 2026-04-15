@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Portfolio</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #e2e8f0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 🌟 Navbar */
+.navbar {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* 🌟 Glass Cards */
+.card-glass {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    transition: 0.4s;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.card-glass:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(99,102,241,0.7);
+}
+
+/* 👤 Profile */
+.profile-img {
+    border-radius: 50%;
+    padding: 5px;
+    background: linear-gradient(45deg, #6366f1, #22d3ee);
+}
+
+/* 🎯 Skills */
+.badge-skill {
+    background: linear-gradient(45deg, #6366f1, #22d3ee);
+    padding: 10px;
+    border-radius: 25px;
+    display: block;
+    text-align: center;
+    transition: 0.3s;
+}
+.badge-skill:hover {
+    transform: scale(1.1);
+}
+
+/* 🔥 Titles */
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #38bdf8, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ⚡ Circle */
+.circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: conic-gradient(#22c55e 0% 75%, #1e293b 75%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.circle::before {
+    content: "";
+    width: 140px;
+    height: 140px;
+    background: #0f172a;
+    border-radius: 50%;
+    position: absolute;
+}
+
+/* 📊 Stats */
+.stat {
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.easy { background: #064e3b; color: #4ade80; }
+.medium { background: #78350f; color: #fbbf24; }
+.hard { background: #7f1d1d; color: #f87171; }
+
+/* 🏆 Achievement */
+.achievement li:hover {
+    transform: translateX(10px);
+    color: #38bdf8;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .flex-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🌟 Navbar -->
+<nav class="navbar navbar-dark px-4">
+    <span class="navbar-brand">My Portfolio</span>
+</nav>
+
+<div class="container mt-5">
+
+    <!-- 👤 Profile -->
+    <div class="card-glass text-center">
+        <img src="{% static 'images/port_image.png' %}" width="150" height="150" class="profile-img mb-3">
+        <h2>{{ name }}</h2>
+        <p>{{ title }}</p>
+        <p>{{ bio }}</p>
+    </div>
+
+    <!-- 🎯 Skills -->
+    <h3 class="section-title">Skills</h3>
+    <div class="row">
+        {% for skill in skills %}
+        <div class="col-md-3 mb-2">
+            <div class="badge-skill">{{ skill }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- 🔥 LeetCode -->
+    <h3 class="section-title">LeetCode Stats</h3>
+    <div class="card-glass d-flex justify-content-between flex-box">
+
+        <div class="circle">
+            <div style="z-index:2; text-align:center;">
+                <h2>{{ leetcode.total }}</h2>
+                <small>/{{ leetcode.total_questions }}</small><br>
+                ✔ Solved
+            </div>
+        </div>
+
+        <div>
+            <div class="stat easy">Easy {{ leetcode.easy }}</div>
+            <div class="stat medium">Medium {{ leetcode.medium }}</div>
+            <div class="stat hard">Hard {{ leetcode.hard }}</div>
+        </div>
+
+    </div>
+
+    <!-- 🔥 GFG -->
+    <h3 class="section-title">GFG Stats</h3>
+    <div class="card-glass d-flex justify-content-between flex-box">
+
+        <div class="circle">
+            <div style="z-index:2; text-align:center;">
+                <h2>{{ gfg.total }}</h2>
+                <small>/{{ gfg.total_questions }}</small><br>
+                ✔ Solved
+            </div>
+        </div>
+
+        <div>
+            <div class="stat easy">Easy {{ gfg.easy }}</div>
+            <div class="stat medium">Medium {{ gfg.medium }}</div>
+            <div class="stat hard">Hard {{ gfg.hard }}</div>
+        </div>
+
+    </div>
+
+    <!-- 🏆 Achievements -->
+    <h3 class="section-title">Achievements</h3>
+    <div class="card-glass achievement">
+        <ul>
+            {% for item in achievements %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
